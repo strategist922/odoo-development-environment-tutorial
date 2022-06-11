@@ -76,6 +76,14 @@ volumes:
 
 `sudo apt install postgresql-client-12`
 
+這邊提醒一下, 主要是看你的 postgresql 是使用哪個版本的,
+
+如果你同時安裝了 postgresql12 以及 postgresql13,
+
+你就再安裝 `sudo apt install postgresql-client-13`.
+
+可以到 `/usr/share/postgresql` 確認你安裝了哪些版本.
+
 ### wkhtmltopdf
 
 尋找對應的版本安裝即可 [wkhtmltopdf](https://wkhtmltopdf.org/downloads.html)
@@ -173,12 +181,42 @@ sudo apt-get install python3 python-dev python3-dev \
      python-pip
 ```
 
+這邊補充一下, 建議依照你的 python 版本安裝, 例如你今天安裝了 python3.8,
+
+就執行 `sudo apt-get install python3.8-dev`
+
+以此類推.
+
 可能出現的錯誤二,
 
 python-ldap 安裝失敗,執行以下指令即可,
 
 ```cmd
 sudo apt-get install libsasl2-dev python-dev libldap2-dev libssl-dev
+```
+
+可能出現的錯誤三,
+
+有時候 psycopg2 會安裝失敗(odoo15), 建議可以改安裝 psycopg2-binary.
+
+```cmd
+pip3 install psycopg2-binary
+```
+
+可能出現的錯誤四,
+
+有時候更新 python 時 (自己遇過一次), 某個套件竟然自己壞了,
+
+錯誤訊息如下,
+
+```text
+ImportError: /python3.6/site-packages/lxml/etree.cpython-36m-x86_64-linux-gnu.so: undefined symbol: PyFPE_jbuf
+```
+
+解法方法,
+
+```cmd
+pip3 install --upgrade --force-reinstall --no-binary :all: lxml==3.7.1
 ```
 
 基本上到這邊可以稍微休息一下。
